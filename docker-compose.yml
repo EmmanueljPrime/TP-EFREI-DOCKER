@@ -1,6 +1,6 @@
 services:
   db:
-    image: emmanueljprime/gestion-produits-db
+    image: emmanueljprime/gestion-produits-db:${APP_VERSION:-latest}
     restart: always
     env_file:
       - .env
@@ -10,15 +10,15 @@ services:
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     ports:
-      - "${MYSQL_PORT}:3306"
+      - "${DB_EXTERNAL_PORT:-3306}:3306"
     volumes:
       - mysql_data:/var/lib/mysql
 
   php:
-    image: emmanueljprime/gestion-produits-php
+    image: emmanueljprime/gestion-produits-php:${APP_VERSION:-latest}
     restart: always
     ports:
-      - "${PHP_PORT}:80"
+      - "${PHP_EXTERNAL_PORT:-80}:80"
     depends_on:
       - db
     environment:
