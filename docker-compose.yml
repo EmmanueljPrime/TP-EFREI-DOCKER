@@ -1,6 +1,6 @@
 services:
   db:
-    build: ./database
+    image: emmanueljprime/gestion-produits-db
     restart: always
     env_file:
       - .env
@@ -15,7 +15,7 @@ services:
       - mysql_data:/var/lib/mysql
 
   php:
-    build: ./php
+    image: emmanueljprime/gestion-produits-php
     restart: always
     ports:
       - "${PHP_PORT}:80"
